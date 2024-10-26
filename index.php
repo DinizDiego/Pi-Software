@@ -180,22 +180,18 @@
         <h2 id="text-retirar">Retirar Kit</h2>
         <form id="retirar-form">
             <div class="input-group">
-                <label for="telefone">Nº Registro:</label>
-                <input type="text" id="telefone" class="modal-input" placeholder="Nº Registro" required>
+                <label for="telefone">Nº Registro Docente:</label>
+                <input type="text" id="telefone" class="modal-input" name="codigo_barras" placeholder="Nº Registro" required>
             </div>
             <div class="input-group">
-                <label for="nome">Nome:</label>
-                <input type="text" id="nome" class="modal-input" placeholder="Nome" required>
-            </div>
-            <div class="input-group">
-                <label for="cpf">CPF:</label>
-                <input type="text" id="cpf" class="modal-input" placeholder="CPF" required>
+                <label for="nome">Nº Registro Kit:</label>
+                <input type="text" id="nome" class="modal-input" name="codigo_barrasKit" placeholder="Nome" required>
             </div>
             <div class="input-group">
                 <label for="observacoes">Observações:</label>
                 <input type="text" id="observacoes" class="modal-input" placeholder="Observações">
             </div>
-            <button type="submit" class="modal-button">Confirmar</button>
+            <button type="submit" class="modal-button">Confirmar Retirada</button>
         </form>
     </div>
 </div>
@@ -207,16 +203,12 @@
         <h2 id="text-devolver">Devolver Kit</h2>
         <form id="devolver-form">
             <div class="input-group">
-                <label for="nRegistro">Nº Registro:</label>
-                <input type="text" id="nRegistro" class="modal-input" placeholder="Nº Registro" required>
+                <label for="telefoneDevolver">Nº Registro Docente:</label>
+                <input type="text" id="telefoneDevolver" class="modal-input" name="codigo_barras" placeholder="Nº Registro" required>
             </div>
             <div class="input-group">
-                <label for="nomeDevolver">Nome:</label>
-                <input type="text" id="nomeDevolver" class="modal-input" placeholder="Nome" required>
-            </div>
-            <div class="input-group">
-                <label for="cpfDevolver">CPF:</label>
-                <input type="text" id="cpfDevolver" class="modal-input" placeholder="CPF" required>
+                <label for="nomeDevolver">Nº Registro Kit:</label>
+                <input type="text" id="nomeDevolver" class="modal-input" name="codigo_barrasKit" placeholder="Nome" required>
             </div>
             <div class="input-group">
                 <label for="observacoesDevolver">Observações:</label>

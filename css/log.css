@@ -1,0 +1,63 @@
+.input-data {
+    padding-top: 40px;
+}
+
+.input-data label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.data-container {
+    display: flex;
+    align-items: center; /* Alinha o botão com o input */
+}
+
+.input-data input[type="date"] {
+    width: 150px; /* Largura do input */
+    padding: 5px; /* Espaçamento interno */
+    font-size: 14px; /* Tamanho da fonte */
+    border: 1px solid #008791; /* Cor da borda */
+    border-radius: 4px; /* Cantos arredondados */
+}
+
+.selecionar-data {
+    background-color: #008791; /* Cor de fundo */
+    color: white; /* Cor do texto */
+    border: none; /* Remove a borda padrão */
+    border-radius: 4px; /* Cantos arredondados */
+    padding: 8px 12px; /* Espaçamento interno */
+    margin-left: 10px; /* Espaçamento à esquerda do botão */
+    cursor: pointer; /* Muda o cursor ao passar o mouse */
+    transition: background-color 0.3s; /* Efeito de transição */
+}
+
+.selecionar-data:hover {
+    background-color: #006f6d; /* Cor ao passar o mouse */
+}
+
+.tabela {
+    background-color: white;
+    padding: 20px;
+    margin-top: 5vh; 
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #008791;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9; /* Alterado para um tom mais claro */
+}
+
+.status-container {
+    display: flex;
+    align-items: center; /* Centraliza verticalmente */
+    gap: 8px; /* Espaçamento entre a bolinha e o texto */
+}

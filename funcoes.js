@@ -53,21 +53,24 @@ window.onclick = function(event) {
 };
 
 // Abre o modal correspondente ao clicar nas opções do menu
-document.getElementById('btnCadastrarKitModal').onclick = function() {
-    document.getElementById('modalCadastrarDocente').style.display = "flex"; // Usa flex para centralizar
+document.getElementById('btnCadastrarKitModal').onclick = function(event) {
+    event.preventDefault();
+    fecharModal(modalCadastrarDocente); // Garante que o modal "Cadastrar Docente" esteja fechado
     fecharModal(menu); // Fecha o menu
-    abrirModal(modalCadastrarKit);
+    abrirModal(modalCadastrarKit); // Abre apenas o modal "Cadastrar Kit"
 };
 
-document.getElementById('btnCadastrarDocenteModal').onclick = function() {
-    document.getElementById('modalCadastrarDocente').style.display = "none";
+document.getElementById('btnCadastrarDocenteModal').onclick = function(event) {
+    event.preventDefault();
+    fecharModal(modalCadastrarKit); // Garante que o modal "Cadastrar Kit" esteja fechado
     fecharModal(menu); // Fecha o menu
-    abrirModal(modalCadastrarDocente);
+    abrirModal(modalCadastrarDocente); // Abre apenas o modal "Cadastrar Docente"
 };
 
-document.getElementById('btnAtualizarDadosModal').onclick = function() {
+document.getElementById('btnAtualizarDadosModal').onclick = function(event) {
+    event.preventDefault();
     fecharModal(menu); // Fecha o menu
-    abrirModal(modalAtualizarDados);
+    abrirModal(modalAtualizarDados); // Abre apenas o modal "Atualizar Dados"
 };
 
 // Abre o modal de retirar
