@@ -35,18 +35,20 @@ class Kit {
     public function cadastrarKit(array $dados)
     {
         $sql = $this->pdo->prepare('INSERT INTO kits 
-                                    (n_sala, situacao, descricao)
+                                    (n_sala, situacao, codigo_barras_kit, descricao)
                                     VALUES
-                                    (:n_sala, :situacao, :descricao)
+                                    (:n_sala, :situacao, :codigo_barras_kit, :descricao)
                                 ');
 
         $n_sala = $dados['n_sala'];
         $situacao = 1;
         $descricao = $dados['descricao'];
+        $codigo_barras_kit = $dados['codigo_barras_kit'];
 
         $sql->bindParam(':n_sala', $n_sala);
         $sql->bindParam(':situacao', $situacao);
         $sql->bindParam(':descricao', $descricao);
+        $sql->bindParam(':codigo_barras_kit', $codigo_barras_kit);
         $sql->execute();
 
         

@@ -61,6 +61,7 @@
             <li><a  id="btnAtualizarDadosModal" style="display: none;">Atualizar Dados</a></li>
             <li><a  id="btnCadastrarKitModal">Cadastrar Kit</a></li>
             <li><a  id="btnCadastrarDocenteModal">Cadastrar Docente</a></li>
+            <li><a  id="btnLog" href="log.php">Registro</a></li>
             <li><a  href="sair.php">Sair</a></li>
         </ul>
     </div>
@@ -74,8 +75,12 @@
         <h2 id="text-cadastrar-kit">Cadastrar Kit</h2>
         <form method="POST" action="?" id="cadastrar-kit-form">
             <div class="input-group">
-                <label for="kitNome">Número do Kit:</label>
+                <label for="kitNome">Número da sala do Kit:</label>
                 <input type="text" id="kitNome" name="n_sala" class="modal-input" placeholder="Número do Kit" required>
+            </div>
+            <div class="input-group">
+                <label for="kitNome">Nº Registro Kit:</label>
+                <input type="text" id="codigo_barras_kit" name="codigo_barras_kit" class="modal-input" placeholder="Nº Registro Kit:" required>
             </div>
             <div class="input-group">
                 <label for="kitDescricao">Descrição:</label>
