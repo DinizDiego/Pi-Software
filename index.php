@@ -4,6 +4,7 @@
     $Kits = new Kit();
     $Usuario = new Usuario();
     $Docente = new Docente();
+    $Entrada_saida = new Entrada_saida();
         
     //Cadastrar kit
     if(isset($_POST['btnCadastrar'])){
@@ -15,6 +16,13 @@
         $Docente->cadastrar($_POST);
     }
 
+    if(isset($_POST['btnRetirar'])){
+        $Entrada_saida->retirar($_POST);
+    }
+
+    if(isset($_POST['btnDevolver'])){
+        $Entrada_saida->devolver($_POST);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -178,20 +186,20 @@
     <div class="modal-content">
         <span class="close" id="closeRetirar" aria-label="Fechar">&times;</span>
         <h2 id="text-retirar">Retirar Kit</h2>
-        <form id="retirar-form">
+        <form id="retirar-form" method="post">
             <div class="input-group">
                 <label for="telefone">Nº Registro Docente:</label>
-                <input type="text" id="telefone" class="modal-input" name="codigo_barras" placeholder="Nº Registro" required>
+                <input type="text" id="telefone" class="modal-input" name="codigo_barras" placeholder="Nº Registro Docente" required>
             </div>
             <div class="input-group">
                 <label for="nome">Nº Registro Kit:</label>
-                <input type="text" id="nome" class="modal-input" name="codigo_barrasKit" placeholder="Nome" required>
+                <input type="text" id="nome" class="modal-input" name="codigo_barras_kit" placeholder="Nº Registro Kit" required>
             </div>
             <div class="input-group">
                 <label for="observacoes">Observações:</label>
-                <input type="text" id="observacoes" class="modal-input" placeholder="Observações">
+                <input type="text" id="observacao_saida" name="observacao_saida" class="modal-input" placeholder="Observações" required>
             </div>
-            <button type="submit" class="modal-button">Confirmar Retirada</button>
+            <button type="submit" name="btnRetirar" class="modal-button">Confirmar Retirada</button>
         </form>
     </div>
 </div>
@@ -201,20 +209,20 @@
     <div class="modal-content">
         <span class="close" id="closeDevolver" aria-label="Fechar">&times;</span>
         <h2 id="text-devolver">Devolver Kit</h2>
-        <form id="devolver-form">
+        <form id="devolver-form" method="post">
             <div class="input-group">
                 <label for="telefoneDevolver">Nº Registro Docente:</label>
-                <input type="text" id="telefoneDevolver" class="modal-input" name="codigo_barras" placeholder="Nº Registro" required>
+                <input type="text" id="telefoneDevolver" class="modal-input" name="codigo_barras" placeholder="Nº Registro Docente" required>
             </div>
             <div class="input-group">
                 <label for="nomeDevolver">Nº Registro Kit:</label>
-                <input type="text" id="nomeDevolver" class="modal-input" name="codigo_barrasKit" placeholder="Nome" required>
+                <input type="text" id="nomeDevolver" class="modal-input" name="codigo_barras_kit" placeholder="Nº Registro Kit" required>
             </div>
             <div class="input-group">
-                <label for="observacoesDevolver">Observações:</label>
-                <input type="text" id="observacoesDevolver" class="modal-input" placeholder="Observações">
+                <label for="observacao_entrada">Observações:</label>
+                <input type="text" id="observacao_entrada" name="observacao_entrada" class="modal-input" placeholder="Observações">
             </div>
-            <button type="submit" class="modal-button">Confirmar Devolução</button>
+            <button type="submit" name="btnDevolver" class="modal-button">Confirmar Devolução</button>
         </form>
     </div>
 </div>

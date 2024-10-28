@@ -116,7 +116,7 @@ class Kit {
             SELECT d.nome 
             FROM entradas_saidas es
             JOIN docentes d ON es.id_docente = d.id_docente
-            WHERE es.id_kit = :id_kit AND es.data_saida IS NULL
+            WHERE es.id_kit = :id_kit AND es.data_entrada IS NULL
         ');
         
         $sql->bindParam(':id_kit', $id_kit);
