@@ -55,7 +55,8 @@ CREATE TABLE `docentes` (
   `turno` tinyint NOT NULL,
   `codigo_barras` varchar(100) NOT NULL,
   `cpf` char(11) NOT NULL,
-  PRIMARY KEY (`id_docente`)
+  PRIMARY KEY (`id_docente`),
+  UNIQUE KEY `codigo_barras_UNIQUE` (`codigo_barras`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -65,7 +66,7 @@ CREATE TABLE `docentes` (
 
 LOCK TABLES `docentes` WRITE;
 /*!40000 ALTER TABLE `docentes` DISABLE KEYS */;
-INSERT INTO `docentes` VALUES (1,'Diego','2005-04-16','123','09241-18',0,'12323124','140.543.238'),(2,'Diego','2005-04-16','123','09241-18',0,'12323124','140.543.238');
+INSERT INTO `docentes` VALUES (1,'Diego','2005-04-16','123','09241-18',0,'12323123','140.543.238'),(2,'DiegoD','2005-04-16','123','09241-18',0,'12323124','140.543.238');
 /*!40000 ALTER TABLE `docentes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -79,15 +80,17 @@ DROP TABLE IF EXISTS `entradas_saidas`;
 CREATE TABLE `entradas_saidas` (
   `id_entrada_saida` int NOT NULL AUTO_INCREMENT,
   `id_docente` int NOT NULL,
+  `id_docente2` int DEFAULT NULL,
   `id_kit` int NOT NULL,
-  `data_entrada` timestamp NOT NULL,
-  `data_saida` timestamp NULL DEFAULT NULL,
+  `data_saida` timestamp NOT NULL,
+  `data_entrada` timestamp NULL DEFAULT NULL,
+  `observacao_saida` text,
+  `observacao_entrada` text,
   PRIMARY KEY (`id_entrada_saida`),
   KEY `fk_entradas_saidas_usuarios_idx` (`id_docente`),
   KEY `fk_entradas_saidas_kits_idx` (`id_kit`),
-  CONSTRAINT `fk_entradas_saidas_kits` FOREIGN KEY (`id_kit`) REFERENCES `kits` (`id_kit`),
-  CONSTRAINT `fk_entradas_saidas_usuarios` FOREIGN KEY (`id_docente`) REFERENCES `docentes` (`id_docentes`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+  CONSTRAINT `fk_entradas_saidas_kits` FOREIGN KEY (`id_kit`) REFERENCES `kits` (`id_kit`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -96,7 +99,7 @@ CREATE TABLE `entradas_saidas` (
 
 LOCK TABLES `entradas_saidas` WRITE;
 /*!40000 ALTER TABLE `entradas_saidas` DISABLE KEYS */;
-INSERT INTO `entradas_saidas` VALUES (1,1,1,'2024-10-20 03:00:00',NULL);
+INSERT INTO `entradas_saidas` VALUES (1,1,2,2,'2024-10-28 03:34:09','2024-10-28 03:34:32','Tudo Completo','Faltando 1 caneta'),(2,1,NULL,2,'2024-10-28 03:34:58',NULL,'Tudo Completo',NULL);
 /*!40000 ALTER TABLE `entradas_saidas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -112,11 +115,11 @@ CREATE TABLE `kits` (
   `n_sala` char(10) NOT NULL,
   `descricao` text NOT NULL,
   `situacao` tinyint NOT NULL,
-  `rfid` varchar(225) DEFAULT NULL,
+  `codigo_barras_kit` varchar(225) NOT NULL,
   PRIMARY KEY (`id_kit`),
   UNIQUE KEY `n_sala_UNIQUE` (`n_sala`),
-  UNIQUE KEY `rfid_UNIQUE` (`rfid`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
+  UNIQUE KEY `rfid_UNIQUE` (`codigo_barras_kit`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -125,7 +128,7 @@ CREATE TABLE `kits` (
 
 LOCK TABLES `kits` WRITE;
 /*!40000 ALTER TABLE `kits` DISABLE KEYS */;
-INSERT INTO `kits` VALUES (1,'1','Controle do Data Show e cartão da sala',2,NULL),(3,'2','Controle do Data Show e cartão da sala e chave dos armários',1,NULL),(4,'3','Controle do Data Show e cartão da sala',1,NULL),(5,'4','Controle do Data Show e cartão da sala',1,NULL),(6,'5','Controle do Data Show e cartão da sala',1,NULL);
+INSERT INTO `kits` VALUES (1,'1','Controle do Data Show e cartão da sala',1,'1946753214860'),(2,'2','Controle do Data Show e cartão da sala e chave dos armários',2,'1946753214861'),(3,'3','Controle do Data Show e cartão da sala',1,'1946753214862'),(4,'4','Controle do Data Show e cartão da sala',1,'1946753214863'),(5,'5','Controle do Data Show e cartão da sala',1,'1946753214864'),(7,'6','40990672',1,'40990672');
 /*!40000 ALTER TABLE `kits` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -173,4 +176,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-21  0:04:50
+-- Dump completed on 2024-10-28 20:54:24

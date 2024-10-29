@@ -20,7 +20,7 @@
     border-radius: 4px; /* Cantos arredondados */
 }
 
-.selecionar-data {
+.sair {
     background-color: #008791; /* Cor de fundo */
     color: white; /* Cor do texto */
     border: none; /* Remove a borda padrão */
@@ -31,7 +31,7 @@
     transition: background-color 0.3s; /* Efeito de transição */
 }
 
-.selecionar-data:hover {
+.sair:hover {
     background-color: #006f6d; /* Cor ao passar o mouse */
 }
 

@@ -10,6 +10,9 @@
 </head>
 <body>
 
+<button class="sair" onclick="window.location.href='index.php'">Voltar</button>
+
+
 <div class="input-data">
     <label for="dataNascimento">Selecione uma Data</label>
     <div class="data-container">
