@@ -25,6 +25,45 @@ class Usuario {
         return $dados;
     }      
 
+    // Função para validar o CPF (PHP)
+    public function validarCPF($cpf) {
+        // Remove caracteres não numéricos
+        $cpf = preg_replace('/\D/', '', $cpf);
+
+        // Verifica se o CPF tem 11 dígitos e não é uma sequência repetida
+        if (strlen($cpf) != 11 || preg_match('/(\d)\1{10}/', $cpf)) {
+            return false;
+        }
+
+        // Validação do 1º dígito
+        $soma = 0;
+        for ($i = 0; $i < 9; $i++) {
+            $soma += $cpf[$i] * (10 - $i);
+        }
+        $resto = $soma % 11;
+        $digito1 = ($resto < 2) ? 0 : 11 - $resto;
+
+        if ($cpf[9] != $digito1) {
+            return false;
+        }
+
+        // Validação do 2º dígito
+        $soma = 0;
+        for ($i = 0; $i < 10; $i++) {
+            $soma += $cpf[$i] * (11 - $i);
+        }
+        $resto = $soma % 11;
+        $digito2 = ($resto < 2) ? 0 : 11 - $resto;
+
+        return $cpf[10] == $digito2;
+    }
+
+    public function validarCEP($cep)
+    {
+        // Expressão regular para verificar o formato do CEP
+        return preg_match('/^[0-9]{5}-?[0-9]{3}$/', $cep);
+    }
+
     /**
      * cadastra um novo usuario
      * @param Array $dados    
@@ -34,6 +73,18 @@ class Usuario {
      */
     public function cadastrar(Array $dados)
     {
+        $cep = $dados['cep'];
+
+        // Verifica se o CEP tem o formato correto
+        if (!$this->validarCEP($cep)) {
+            throw new Exception("O formato do CEP está incorreto.");
+        }
+
+        // Verifica se o CPF é válido
+        if (!$this->validarCPF($dados['cpf'])) {
+            throw new Exception("CPF inválido.");
+        }
+
         $sql = $this->pdo->prepare('INSERT INTO usuarios 
                                     (id_cargo, nome, data_nascimento, telefone, cep, turno, login, senha, codigo_barras, cpf)
                                     VALUES

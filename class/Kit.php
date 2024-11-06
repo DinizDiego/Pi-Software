@@ -74,6 +74,30 @@ class Kit {
     	return $dados;
     }
 
+    public function mostrarObservacao(int $id_kit)
+    {
+        try {
+            // Consulta SQL para obter a observação do kit
+            $sql = $this->pdo->prepare('SELECT observacao FROM kits WHERE id_kit = :id_kit LIMIT 1');
+            $sql->bindParam(':id_kit', $id_kit);
+            $sql->execute();
+            
+            // Recupera o resultado da consulta
+            $dados = $sql->fetch(PDO::FETCH_OBJ);
+
+            // Verifica se a observação foi encontrada
+            if ($dados && isset($dados->observacao)) {
+                return $dados->observacao;  // Retorna a observação
+            } else {
+                return 'Nenhuma observação encontrada para este kit.';  // Caso não exista observação
+            }
+        } catch (Exception $e) {
+            // Se houver um erro na consulta, captura a exceção
+            return 'Erro ao buscar a observação: ' . $e->getMessage();
+        }
+    }   
+
+
     /**
      * Atualiza um determinado kit
      *
