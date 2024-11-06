@@ -23,7 +23,6 @@
     if(isset($_POST['btnDevolver'])){
         $Entrada_saida->devolver($_POST);
     }
-    
 ?>
 
 <!DOCTYPE html>
@@ -34,9 +33,6 @@
     <title>Controle de Kits</title>
     <link rel="stylesheet" href="css/Kits.css">
     <link rel="stylesheet" href="css/modal.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="funcoes.js" defer></script>
 </head>
 <body>
@@ -120,8 +116,9 @@
             <div class="input-group">
                 <label for="turno">Turno:</label>
                 <select id="turno" name="turno" class="modal-input" required>
-                    <option value="manhã">Manhã/Tarde</option>
-                    <option value="tarde">Tarde/Noite</option>
+                    <option value="manhã">Manhã</option>
+                    <option value="tarde">Tarde</option>
+                    <option value="noite">Noite</option>
                 </select>
             </div>
             <div class="input-group">
@@ -155,6 +152,8 @@
 </div>
 
 
+
+
 <section class="secao-busca">
     <input type="text" id="buscar_kit" class="input-busca" placeholder="Buscar..." aria-label="Campo de busca">
 </section>
@@ -166,7 +165,6 @@
                 <th>Kits</th>
                 <th>Responsável</th>
                 <th>Situação</th>
-                <th>Observações</th>
             </tr>
         </thead>
         <tbody>
@@ -175,43 +173,18 @@
                     <td><?php echo $kit->n_sala; ?></td>
                     <td><?php echo $Kits->obterDocenteEmUso($kit->id_kit)?></td>
                     <td><?php Helper::mostrarSituacao($kit->situacao)?></td>
-                    <td><button type="button" class="btn btn-secondary" 
-                                data-bs-toggle="modal" data-bs-target="#observacaoModal"
-                                data-id="<?php echo $kit->id_kit; ?>"> <!-- Passando o id_kit -->
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </button>
-                    </td>
                 </tr>
             <?php endforeach; ?>    
         </tbody>
     </table>
 </section>
 
-<!-- Modal do Bootstrap 5 -->
-<div class="modal fade" id="observacaoModal" tabindex="-1" aria-labelledby="observacaoModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="observacaoModalLabel">Observação</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <textarea id="observacaoTexto" class="form-control" rows="5" readonly>
-                
-        </textarea>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 
     <div class="botao-status">
         <button class="status-box2" id="btnRetirar" type="button">Retirar</button>
         <button class="status-box2" id="btnDevolver" type="button">Devolver</button>
     </div>
+</section>
 
 <!-- Modal para Retirar Kit -->
 <div id="modalRetirar" class="modal" role="dialog" aria-labelledby="text-retirar" aria-modal="true">

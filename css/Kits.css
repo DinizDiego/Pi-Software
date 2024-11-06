@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #e6f7ff !important;
+    background-color: #e6f7ff;
     margin: 0;
     padding: 20px;
   }
@@ -15,7 +15,7 @@ body {
   .quantidade {
     font-weight: bold; /* Para destacar a quantidade */
     font-size: 24px;
-    color: #333 !important;
+    color: #333;
   }
   
   .status-box {
@@ -26,12 +26,12 @@ body {
     width: 150px;
     height: 80px; /* Aumenta a altura para acomodar o valor embaixo */
     text-align: center;
-    background-color: #FFF !important;
-    color: #008791 !important;
+    background-color: #FFF;
+    color: #008791;
     font-weight: 900;
-    border: 2px solid #008791 !important;
+    border: 2px solid #008791;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4) !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   }
   
@@ -46,14 +46,14 @@ body {
     padding: 10px 15px;
     margin-right: 10px;
     border-radius: 5px;
-    border-color: #008791 !important;
+    border-color: #008791;
     
   }
   
   .botao-busca {
     padding: 10px 15px;
-    background-color: #008791 !important; /* Verde */
-    color: white !important;
+    background-color: #008791; /* Verde */
+    color: white;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -63,48 +63,25 @@ body {
   }
   
   .tabela {
-    background-color: white !important;
+    background-color: white;
     padding: 20px;
-    margin-top: 20vh;
-}
-
-table {
+    margin-top: 20vh; 
+  }
+  
+  table {
     width: 100%;
     border-collapse: collapse;
-}
-
-th, td {
-    border: 1px solid #008791 !important;
+  }
+  
+  th, td {
+    border: 1px solid #008791;
     text-align: left;
     padding: 8px;
-}
-
-tr:nth-child(even) {
-    background-color: #ffffff !important; /* Selecionando as linhas pares para um fundo branco */
-}
-
-/* Estilo para a última célula de cada linha (onde está o botão) */
-table td:last-child {
-    width: 50px;               /* Ajusta a largura da última célula */
-    text-align: center;        /* Alinha o conteúdo ao centro */
-    padding: 5px;              /* Ajusta o preenchimento */
-    background-color: #f4f4f4 !important; /* Cor de fundo opcional */
-}
-
-/* Estilo para o botão dentro da última célula */
-table td:last-child button {
-    padding: 5px 10px;         /* Ajusta o tamanho do botão */
-    font-size: 14px;           /* Ajusta o tamanho da fonte */
-    border: none;              /* Remove a borda do botão */
-    background-color: #008791 !important; /* Cor de fundo do botão */
-    color: white !important;              /* Cor do texto do botão */
-    cursor: pointer;          /* Muda o cursor para indicar que é clicável */
-}
-
-table td:last-child button:hover {
-    background-color: #005f69 !important; /* Cor de fundo do botão ao passar o mouse */
-}
-
+  }
+  
+  tr:nth-child(even) {
+    background-color: #ffffff; /* Selecionando todas as linhas da tabela e as pares com bkground cinza c */
+  }
   
   .status-container {
     display: flex;
@@ -115,7 +92,7 @@ table td:last-child button:hover {
 .disponivel {
     height: 15px;
     width: 15px;
-    background-color: green !important;
+    background-color: green;
     border-radius: 50%;
     display: inline-block;
 }
@@ -123,7 +100,7 @@ table td:last-child button:hover {
 .indisponivel {
     height: 15px;
     width: 15px;
-    background-color: red !important;
+    background-color: red;
     border-radius: 50%;
     display: inline-block;
 }
@@ -136,11 +113,11 @@ table td:last-child button:hover {
   width: 120px; /* Largura do botão */
   height: 40px; /* Altura do botão */
   text-align: center;
-  background-color: #008791 !important; /* Cor de fundo */
-  color: #ffffff !important; /* Cor do texto */
+  background-color: #008791; /* Cor de fundo */
+  color: #ffffff; /* Cor do texto */
   font-weight: 900; /* Peso da fonte */
   border-radius: 8px; /* Bordas arredondadas */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4) !important; /* Sombra do botão */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Sombra do botão */
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; /* Fonte */
   cursor: pointer; /* Cursor ao passar o mouse */
   border: none; /* Remove a borda padrão */
@@ -169,26 +146,26 @@ table td:last-child button:hover {
 
 .botao-cadastrar {
   background-color: #FFF; /* Cor de fundo clara */
-  border: 2px solid #008791 !important; /* Borda suave */
+  border: 2px solid #008791; /* Borda suave */
   border-radius: 5px; /* Bordas arredondadas */
   padding: 10px 20px; /* Espaçamento interno */
   font-size: 16px; /* Tamanho da fonte */
-  color: #333 !important; /* Cor do texto */
+  color: #333; /* Cor do texto */
   cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
   transition: background-color 0.3s, transform 0.2s; /* Transições suaves */
 }
 
 .botao-cadastrar:hover {
-  background-color: #e0e0e0 !important; /* Cor de fundo ao passar o mouse */
+  background-color: #e0e0e0; /* Cor de fundo ao passar o mouse */
   transform: scale(1.05); /* Leve aumento ao passar o mouse */
 }
 
 .menu {
   display: none; /* Esconde o menu por padrão */
-  background-color: #FFF !important; /* Cor de fundo do menu */
-  border: 2px solid #008791 !important; /* Borda do menu */
+  background-color: #FFF; /* Cor de fundo do menu */
+  border: 2px solid #008791; /* Borda do menu */
   border-radius: 8px; /* Bordas arredondadas */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4) !important; /* Sombra do menu */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Sombra do menu */
   position: absolute; /* Para posicionar o menu se necessário */
   z-index: 1; /* Para garantir que o menu fique acima de outros elementos */
 }
@@ -205,7 +182,7 @@ table td:last-child button:hover {
 
 .menu li a {
   text-decoration: none; /* Remove o sublinhado */
-  color: #008791 !important; /* Cor do texto do link */
+  color: #008791; /* Cor do texto do link */
   font-weight: 900; /* Peso da fonte */
 }
 
@@ -225,7 +202,7 @@ table td:last-child button:hover {
   background: none; /* Sem fundo */
   border: none; /* Sem borda */
   font-size: 18px; /* Tamanho da fonte */
-  color: #008791 !important; /* Cor do texto */
+  color: #008791; /* Cor do texto */
 }
 
 
