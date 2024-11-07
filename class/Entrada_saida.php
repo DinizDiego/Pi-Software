@@ -7,7 +7,8 @@ class Entrada_saida {
     
     public function __construct()
     {
-        $this->pdo = Conexao::conexao();               
+
+        $this->pdo = Conexao::conexao();     
     }
 
     /**
@@ -118,7 +119,7 @@ class Entrada_saida {
     {
         $codigo_barras = $dados['codigo_barras']; 
         $codigo_barras_kit = $dados['codigo_barras_kit']; 
-        $item_kit = isset($dados['item_kit']) ? implode(",", $dados['item_kit']) : '';  // Aqui converte o array para uma string
+        $item_kit = isset($dados['item_kit']) ? implode(", ", $dados['item_kit']) : '';  // Aqui converte o array para uma string
         $data_saida = date("Y-m-d H:i:s");
 
         // Verifica a disponibilidade do kit
@@ -178,7 +179,7 @@ class Entrada_saida {
     {
         $codigo_barras = $dados['codigo_barras'];
         $codigo_barras_kit = $dados['codigo_barras_kit'];
-        $item_kit = isset($dados['item_kit']) ? implode(",", $dados['item_kit']) : ''; // Itens selecionados (string separada por vírgulas)
+        $item_kit2 = isset($dados['item_kit2']) ? implode(", ", $dados['item_kit2']) : ''; // Itens selecionados (string separada por vírgulas)
         $data_entrada = date("Y-m-d H:i:s");
 
         // Verifica quantos kits disponíveis
@@ -216,10 +217,10 @@ class Entrada_saida {
             // Verifica se o docente que está devolvendo é o mesmo que retirou o kit
             if ($kit->id_docente == $id_docente_entregador) {
                 // Atualiza a entrada de saída com a data de devolução
-                $sql = $this->pdo->prepare('UPDATE entradas_saidas SET data_entrada = :data_entrada, item_kit = :item_kit WHERE id_kit = :id_kit AND data_entrada IS NULL');
+                $sql = $this->pdo->prepare('UPDATE entradas_saidas SET data_entrada = :data_entrada, item_kit2 = :item_kit2 WHERE id_kit = :id_kit AND data_entrada IS NULL');
                 $sql->bindParam(':id_kit', $id_kit);
                 $sql->bindParam(':data_entrada', $data_entrada);
-                $sql->bindParam(':item_kit', $item_kit); // Aqui o item_kit já está garantido como uma string não nula
+                $sql->bindParam(':item_kit2', $item_kit2); // Aqui o item_kit já está garantido como uma string não nula
                 $sql->execute();
 
                 // Atualiza a situação do kit para disponível
@@ -231,11 +232,11 @@ class Entrada_saida {
                 echo "<script>alert('Devolvido com sucesso!');</script>";
             } else {
                 // Caso o docente não seja o mesmo que retirou, você pode atualizar o id_docente2
-                $sql = $this->pdo->prepare('UPDATE entradas_saidas SET data_entrada = :data_entrada, id_docente2 = :id_docente2, item_kit = :item_kit WHERE id_kit = :id_kit');
+                $sql = $this->pdo->prepare('UPDATE entradas_saidas SET data_entrada = :data_entrada, id_docente2 = :id_docente2, item_kit2 = :item_kit2 WHERE id_kit = :id_kit');
                 $sql->bindParam(':id_kit', $id_kit);
                 $sql->bindParam(':data_entrada', $data_entrada);
                 $sql->bindParam(':id_docente2', $id_docente_entregador);
-                $sql->bindParam(':item_kit', $item_kit); // Aqui o item_kit é garantido como uma string não nula
+                $sql->bindParam(':item_kit2', $item_kit2); // Aqui o item_kit é garantido como uma string não nula
                 $sql->execute();
 
                 // Atualiza a situação do kit para disponível

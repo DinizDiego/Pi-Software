@@ -86,11 +86,12 @@ CREATE TABLE `entradas_saidas` (
   `data_entrada` timestamp NULL DEFAULT NULL,
   `observacao_saida` text,
   `observacao_entrada` text,
+  `item_kit` text,
   PRIMARY KEY (`id_entrada_saida`),
   KEY `fk_entradas_saidas_usuarios_idx` (`id_docente`),
   KEY `fk_entradas_saidas_kits_idx` (`id_kit`),
   CONSTRAINT `fk_entradas_saidas_kits` FOREIGN KEY (`id_kit`) REFERENCES `kits` (`id_kit`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -99,7 +100,7 @@ CREATE TABLE `entradas_saidas` (
 
 LOCK TABLES `entradas_saidas` WRITE;
 /*!40000 ALTER TABLE `entradas_saidas` DISABLE KEYS */;
-INSERT INTO `entradas_saidas` VALUES (1,1,2,2,'2024-10-28 03:34:09','2024-10-28 03:34:32','Tudo Completo','Faltando 1 caneta'),(2,1,NULL,2,'2024-10-28 03:34:58',NULL,'Tudo Completo',NULL);
+INSERT INTO `entradas_saidas` VALUES (1,1,1,2,'2024-11-07 01:01:38','2024-11-07 02:25:25',NULL,NULL,NULL),(2,1,2,1,'2024-11-07 01:10:04','2024-11-07 02:36:40',NULL,NULL,''),(3,1,1,2,'2024-11-07 01:55:29','2024-11-07 02:25:25',NULL,NULL,NULL),(4,2,2,1,'2024-11-07 02:07:32','2024-11-07 02:36:40',NULL,NULL,''),(5,1,2,3,'2024-11-07 02:12:31','2024-11-07 02:27:08',NULL,NULL,NULL),(6,1,1,4,'2024-11-07 02:19:10','2024-11-07 02:27:39',NULL,NULL,NULL),(7,1,2,1,'2024-11-07 02:34:17','2024-11-07 02:36:40',NULL,NULL,''),(8,1,2,1,'2024-11-07 02:36:30','2024-11-07 02:36:40',NULL,NULL,'');
 /*!40000 ALTER TABLE `entradas_saidas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -113,7 +114,7 @@ DROP TABLE IF EXISTS `kits`;
 CREATE TABLE `kits` (
   `id_kit` int NOT NULL AUTO_INCREMENT,
   `n_sala` char(10) NOT NULL,
-  `descricao` text NOT NULL,
+  `descricao` text,
   `situacao` tinyint NOT NULL,
   `codigo_barras_kit` varchar(225) NOT NULL,
   PRIMARY KEY (`id_kit`),
@@ -128,7 +129,7 @@ CREATE TABLE `kits` (
 
 LOCK TABLES `kits` WRITE;
 /*!40000 ALTER TABLE `kits` DISABLE KEYS */;
-INSERT INTO `kits` VALUES (1,'1','Controle do Data Show e cartão da sala',1,'1946753214860'),(2,'2','Controle do Data Show e cartão da sala e chave dos armários',2,'1946753214861'),(3,'3','Controle do Data Show e cartão da sala',1,'1946753214862'),(4,'4','Controle do Data Show e cartão da sala',1,'1946753214863'),(5,'5','Controle do Data Show e cartão da sala',1,'1946753214864'),(7,'6','40990672',1,'40990672');
+INSERT INTO `kits` VALUES (1,'1','Controle do Data Show e cartão da sala',1,'1946753214860'),(2,'2','Controle do Data Show e cartão da sala e chave dos armários',1,'1946753214861'),(3,'3','Controle do Data Show e cartão da sala',1,'1946753214862'),(4,'4','Controle do Data Show e cartão da sala',1,'1946753214863'),(5,'5','Controle do Data Show e cartão da sala',1,'1946753214864'),(7,'6','40990672',1,'40990672');
 /*!40000 ALTER TABLE `kits` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -154,7 +155,7 @@ CREATE TABLE `usuarios` (
   PRIMARY KEY (`id_usuario`),
   KEY `fk_usuarios_cargos_idx` (`id_cargo`),
   CONSTRAINT `fk_usuarios_cargos` FOREIGN KEY (`id_cargo`) REFERENCES `cargos` (`id_cargo`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -163,7 +164,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,1,'fsda','2024-09-05','fw','ad@a',0,'dad','as','DinizDiego','12IbR.gJ8wcpc'),(2,1,'Diego','2005-04-16','123','09241-18',NULL,NULL,'140.543.238','Diego','12IbR.gJ8wcpc');
+INSERT INTO `usuarios` VALUES (1,1,'fsda','2024-09-05','fw','ad@a',0,'dad','as','DinizDiego','12IbR.gJ8wcpc'),(2,1,'Diego','2005-04-16','123','09241-18',NULL,NULL,'140.543.238','Diego','12IbR.gJ8wcpc'),(3,1,'André','2006-04-16','11 981824510','09241-18',NULL,NULL,'50873738870','andre.santos','12IbR.gJ8wcpc'),(4,1,'Kaique Souza','2005-04-07','11 981824511','09241-18',NULL,NULL,'224.124.325','kaique.souza','12IbR.gJ8wcpc'),(5,1,'Leandro Diniz','2002-08-07','11 981824510','09241-18',NULL,NULL,'50873738870','leandro.diniz','12IbR.gJ8wcpc'),(6,1,'douglas','1988-09-15','11 981824510','09241-18',NULL,NULL,'50873738870','douglas','12IbR.gJ8wcpc'),(7,1,'douglas','2005-04-16','11 981824511','09241-18',NULL,NULL,'50873738870','douglas','12IbR.gJ8wcpc');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -176,4 +177,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-28 20:54:24
+-- Dump completed on 2024-11-06 23:44:34

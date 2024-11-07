@@ -22,6 +22,7 @@ function getHistorico($data)
     // Busca os resultados
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
 function status($status)
 {
     switch($status){
@@ -37,18 +38,37 @@ function status($status)
 // Captura a data recebida via GET
 $data = isset($_GET['data']) ? $_GET['data'] : null;
 
-// Verifica se a data foi recebida
+// Função para formatar a string de itens
+function formatarItens($itens) {
+    // Se não houver itens, retorna uma string vazia
+    if (empty($itens)) {
+        return '';
+    }
+
+    // Substitui os underscores por espaços
+    $itens = str_replace('_', ' ', $itens);
+    
+    // Coloca todas as palavras com a primeira letra maiúscula
+    $itensFormatados = ucwords(strtolower($itens));
+
+    return $itensFormatados;
+}
+
 if ($data) {
     $historico = getHistorico($data);
     if ($historico) {
         foreach ($historico as $row) {
+            // Usa a função formatarItens para formatar item_kit e item_kit2
+            $itemKitFormatado = formatarItens($row['item_kit']);
+            $itemKit2Formatado = formatarItens($row['item_kit2']);
+
             echo "<tr>
-                    <td>" . htmlspecialchars(date('d/m/Y h:i:s', strtotime($row['data_saida']))) . "</td>
+                    <td>" . htmlspecialchars(date('d/m/Y H:i:s', strtotime($row['data_saida']))) . "</td>
                     <td>" . htmlspecialchars($Docente->mostrar($row['id_docente'])->nome) . "</td>
-                    <td>" . htmlspecialchars(!empty($row['observacao_saida']) ? $row['observacao_saida'] : "") . "</td>
-                    <td>" . htmlspecialchars(!empty($row['data_entrada']) ? date('d/m/Y h:i:s', strtotime($row['data_entrada'])) : "") . "</td>
+                    <td>" . htmlspecialchars($itemKitFormatado) . "</td>
+                    <td>" . htmlspecialchars(!empty($row['data_entrada']) ? date('d/m/Y H:i:s', strtotime($row['data_entrada'])) : "") . "</td>
                     <td>" . htmlspecialchars(!empty($row['id_docente2']) ? $Docente->mostrar($row['id_docente2'])->nome : "") . "</td>
-                    <td>" . htmlspecialchars(!empty($row['observacao_entrada']) ? $row['observacao_entrada'] : "") . "</td>
+                    <td>" . htmlspecialchars($itemKit2Formatado) . "</td>
                   </tr>";
         }        
     } else {
@@ -57,4 +77,6 @@ if ($data) {
 } else {
     echo "<tr><td colspan='3'>Data não informada.</td></tr>";
 }
+
+
 ?>

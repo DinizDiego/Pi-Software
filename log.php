@@ -26,10 +26,10 @@
             <tr>
                 <th>Data de Retirada</th>
                 <th>Responsável Retirada</th>
-                <th>Observação Retirada</th>
+                <th>Itens na Retirada</th>
                 <th>Data de Devolução</th>
                 <th>Responsável Devolução</th>
-                <th>Observação Devolução</th>
+                <th>Itens na Devolução</th>
             </tr>
         </thead>
         <tbody id="tabelaHistorico">
