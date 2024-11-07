@@ -57,7 +57,7 @@ CREATE TABLE `docentes` (
   `cpf` char(11) NOT NULL,
   PRIMARY KEY (`id_docente`),
   UNIQUE KEY `codigo_barras_UNIQUE` (`codigo_barras`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,7 +66,7 @@ CREATE TABLE `docentes` (
 
 LOCK TABLES `docentes` WRITE;
 /*!40000 ALTER TABLE `docentes` DISABLE KEYS */;
-INSERT INTO `docentes` VALUES (1,'Diego','2005-04-16','123','09241-18',0,'12323123','140.543.238'),(2,'DiegoD','2005-04-16','123','09241-18',0,'12323124','140.543.238');
+INSERT INTO `docentes` VALUES (1,'Diego','2005-04-16','123','09241-18',0,'12323123','140.543.238'),(2,'DiegoD','2005-04-16','123','09241-18',0,'12323124','140.543.238'),(3,'André','1998-01-01','11 981824510','09241-18',0,'12323125','140.543.238'),(4,'kaique','2000-02-01','11 981824522','09241-18',0,'12323126','618.269.440');
 /*!40000 ALTER TABLE `docentes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -87,11 +87,12 @@ CREATE TABLE `entradas_saidas` (
   `observacao_saida` text,
   `observacao_entrada` text,
   `item_kit` text,
+  `item_kit2` text,
   PRIMARY KEY (`id_entrada_saida`),
   KEY `fk_entradas_saidas_usuarios_idx` (`id_docente`),
   KEY `fk_entradas_saidas_kits_idx` (`id_kit`),
   CONSTRAINT `fk_entradas_saidas_kits` FOREIGN KEY (`id_kit`) REFERENCES `kits` (`id_kit`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -100,7 +101,7 @@ CREATE TABLE `entradas_saidas` (
 
 LOCK TABLES `entradas_saidas` WRITE;
 /*!40000 ALTER TABLE `entradas_saidas` DISABLE KEYS */;
-INSERT INTO `entradas_saidas` VALUES (1,1,1,2,'2024-11-07 01:01:38','2024-11-07 02:25:25',NULL,NULL,NULL),(2,1,2,1,'2024-11-07 01:10:04','2024-11-07 02:36:40',NULL,NULL,''),(3,1,1,2,'2024-11-07 01:55:29','2024-11-07 02:25:25',NULL,NULL,NULL),(4,2,2,1,'2024-11-07 02:07:32','2024-11-07 02:36:40',NULL,NULL,''),(5,1,2,3,'2024-11-07 02:12:31','2024-11-07 02:27:08',NULL,NULL,NULL),(6,1,1,4,'2024-11-07 02:19:10','2024-11-07 02:27:39',NULL,NULL,NULL),(7,1,2,1,'2024-11-07 02:34:17','2024-11-07 02:36:40',NULL,NULL,''),(8,1,2,1,'2024-11-07 02:36:30','2024-11-07 02:36:40',NULL,NULL,'');
+INSERT INTO `entradas_saidas` VALUES (1,4,1,2,'2024-11-07 20:14:37','2024-11-07 20:14:42',NULL,NULL,'cartao_sala, caneta_lousa, controle_ar, controle_projetor','cartao_sala, caneta_lousa, controle_ar, controle_projetor');
 /*!40000 ALTER TABLE `entradas_saidas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -177,4 +178,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-06 23:44:34
+-- Dump completed on 2024-11-07 17:21:47

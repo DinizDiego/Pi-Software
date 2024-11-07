@@ -190,7 +190,7 @@
     <div class="modal-content">
         <span class="close" id="closeRetirar" aria-label="Fechar">&times;</span>
         <h2 id="text-retirar">Retirar Kit</h2>
-        <form id="retirar-form" method="POST">
+        <form id="retirar-form" method="POST" onsubmit="return false;"> <!-- Impede o submit imediato -->
             <div class="input-group">
                 <label for="telefone">Nº Registro Docente:</label>
                 <input type="text" id="telefone" class="modal-input" name="codigo_barras" placeholder="Nº Registro Docente" required>
@@ -228,6 +228,7 @@
                     </div>
                 </div>
             </div>
+            <!-- O botão agora dispara a ação via JavaScript -->
             <button type="submit" name="btnRetirar" class="modal-button">Confirmar Retirada</button>
         </form>
     </div>
@@ -238,7 +239,7 @@
     <div class="modal-content">
         <span class="close" id="closeDevolver" aria-label="Fechar">&times;</span>
         <h2 id="text-devolver">Devolver Kit</h2>
-        <form id="devolver-form" method="POST">
+        <form id="devolver-form" method="POST" onsubmit="return false;"> <!-- Impede o submit imediato -->
             <div class="input-group">
                 <label for="telefoneDevolver">Nº Registro Docente:</label>
                 <input type="text" id="telefoneDevolver" class="modal-input" name="codigo_barras" placeholder="Nº Registro Docente" required>
@@ -276,27 +277,30 @@
                     </div>
                 </div>
             </div>
+            <!-- O botão agora dispara a ação via JavaScript -->
             <button type="submit" name="btnDevolver" class="modal-button">Confirmar Devolução</button>
         </form>
     </div>
 </div>
+
 
 <footer class="rodape">
     <p>Imagens meramente ilustrativas. Copyright 2024 © Axo Solution's Todos os direitos reservados.</p>
 </footer>
 
 </body>
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    <script>
-        $(document).ready(function() {
-    // Verifica se o parâmetro de status está presente na URL
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('sc') && urlParams.get('sc') === 'true') {
-        alert('Cadastro realizado com sucesso!');
-        
-        // Limpa todos os parâmetros da URL
-        window.history.replaceState({}, document.title, window.location.pathname);
-    }
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+<script>
+    $(document).ready(function() {
+        // Verifica se o parâmetro de status está presente na URL
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('sc') && urlParams.get('sc') === 'true') {
+            alert('Cadastro realizado com sucesso!');
+            
+            // Limpa todos os parâmetros da URL
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
         
         // Função de filtro para a tabela
         $('#buscar_kit').on('input', function() {
@@ -305,6 +309,22 @@
                 // Mostra as linhas que contêm o valor e esconde as que não contêm
                 $(this).toggle($(this).find('td').first().text().toLowerCase().indexOf(valor) > -1);
             });
+        });
+
+        // Função para verificar se o código de barras foi preenchido via leitura
+        $('#telefone, #nome, #telefoneDevolver, #nomeDevolver').on('input', function(e) {
+            var inputId = $(this).attr('id');
+            var barcode = $(this).val().trim();
+            
+            if (barcode.length > 0) {
+                // Se o campo de código de barras foi preenchido, tenta fazer o submit
+                if(inputId === 'nome' || inputId === 'nomeDevolver') {
+                    if (barcode.length === 13) { // Aqui verifica se o código de barras tem o tamanho esperado
+                        var formId = (inputId === 'nome') ? '#retirar-form' : '#devolver-form';
+                        $(formId).submit(); // Dispara o envio do formulário
+                    }
+                }
+            }
         });
     });
 </script>
