@@ -133,3 +133,17 @@ window.onload = function() {
     fecharModal(modalCadastrarDocente);
     menu.style.display = 'none'; // Garante que o menu esteja fechado
 };
+
+// Função para marcar ou desmarcar todos os checkboxes
+// Função para marcar ou desmarcar todos os checkboxes
+function marcarTodos() {
+    // Obter todos os checkboxes individuais
+    const checkboxes = document.querySelectorAll('.checkbox-container input[type="checkbox"]');
+    
+    // Verificar o estado do "Marcar Todos" e marcar/desmarcar todos os checkboxes
+    const marcar = !checkboxes[0].checked;  // Inverte o estado para marcar/desmarcar
+    
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = marcar;  // Marca ou desmarca todos
+    });
+}

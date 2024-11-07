@@ -116,9 +116,8 @@
             <div class="input-group">
                 <label for="turno">Turno:</label>
                 <select id="turno" name="turno" class="modal-input" required>
-                    <option value="manhã">Manhã</option>
-                    <option value="tarde">Tarde</option>
-                    <option value="noite">Noite</option>
+                    <option value="manhã">Manhã/Tarde</option>
+                    <option value="tarde">Tarde/Noite</option>
                 </select>
             </div>
             <div class="input-group">
@@ -191,7 +190,7 @@
     <div class="modal-content">
         <span class="close" id="closeRetirar" aria-label="Fechar">&times;</span>
         <h2 id="text-retirar">Retirar Kit</h2>
-        <form id="retirar-form" method="post">
+        <form id="retirar-form" method="POST">
             <div class="input-group">
                 <label for="telefone">Nº Registro Docente:</label>
                 <input type="text" id="telefone" class="modal-input" name="codigo_barras" placeholder="Nº Registro Docente" required>
@@ -201,8 +200,33 @@
                 <input type="text" id="nome" class="modal-input" name="codigo_barras_kit" placeholder="Nº Registro Kit" required>
             </div>
             <div class="input-group">
-                <label for="observacoes">Observações:</label>
-                <input type="text" id="observacao_saida" name="observacao_saida" class="modal-input" placeholder="Observações" required>
+                <div class="checkbox-container">
+                    <!-- Caixa de "Marcar Todos" -->
+                    <label class="marcar-todos" onclick="marcarTodos()">Marcar Todos</label>
+
+                    <!-- Checkboxes individuais organizados em duas colunas -->
+                    <div class="checkbox-list">
+                        <label class="checkbox-item">Cartão da Sala
+                            <input type="checkbox" name="item_kit[]" value="cartao_sala">
+                            <span class="checkmark"></span>
+                        </label>
+
+                        <label class="checkbox-item">Caneta da Lousa
+                            <input type="checkbox" name="item_kit[]" value="caneta_lousa">
+                            <span class="checkmark"></span>
+                        </label>
+
+                        <label class="checkbox-item">Controle do Ar
+                            <input type="checkbox" name="item_kit[]" value="controle_ar">
+                            <span class="checkmark"></span>
+                        </label>
+
+                        <label class="checkbox-item">Controle Projetor
+                            <input type="checkbox" name="item_kit[]" value="controle_projetor">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                </div>
             </div>
             <button type="submit" name="btnRetirar" class="modal-button">Confirmar Retirada</button>
         </form>
@@ -214,7 +238,7 @@
     <div class="modal-content">
         <span class="close" id="closeDevolver" aria-label="Fechar">&times;</span>
         <h2 id="text-devolver">Devolver Kit</h2>
-        <form id="devolver-form" method="post">
+        <form id="devolver-form" method="POST">
             <div class="input-group">
                 <label for="telefoneDevolver">Nº Registro Docente:</label>
                 <input type="text" id="telefoneDevolver" class="modal-input" name="codigo_barras" placeholder="Nº Registro Docente" required>
@@ -224,8 +248,33 @@
                 <input type="text" id="nomeDevolver" class="modal-input" name="codigo_barras_kit" placeholder="Nº Registro Kit" required>
             </div>
             <div class="input-group">
-                <label for="observacao_entrada">Observações:</label>
-                <input type="text" id="observacao_entrada" name="observacao_entrada" class="modal-input" placeholder="Observações">
+                <div class="checkbox-container">
+                    <!-- Caixa de "Marcar Todos" -->
+                    <label class="marcar-todos" onclick="marcarTodos()">Marcar Todos</label>
+
+                    <!-- Checkboxes individuais organizados em duas colunas -->
+                    <div class="checkbox-list">
+                        <label class="checkbox-item">Cartão da Sala
+                            <input type="checkbox" name="itens_kit[]" value="cartao_sala">
+                            <span class="checkmark"></span>
+                        </label>
+
+                        <label class="checkbox-item">Caneta da Lousa
+                            <input type="checkbox" name="itens_kit[]" value="caneta_lousa">
+                            <span class="checkmark"></span>
+                        </label>
+
+                        <label class="checkbox-item">Controle do Ar
+                            <input type="checkbox" name="itens_kit[]" value="controle_ar">
+                            <span class="checkmark"></span>
+                        </label>
+
+                        <label class="checkbox-item">Controle Projetor
+                            <input type="checkbox" name="itens_kit[]" value="controle_projetor">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                </div>
             </div>
             <button type="submit" name="btnDevolver" class="modal-button">Confirmar Devolução</button>
         </form>
