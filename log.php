@@ -26,6 +26,7 @@
             <tr>
                 <th>Data de Retirada</th>
                 <th>Responsável Retirada</th>
+                <th>Kit Retirado</th>
                 <th>Itens na Retirada</th>
                 <th>Data de Devolução</th>
                 <th>Responsável Devolução</th>

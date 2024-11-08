@@ -206,23 +206,23 @@
 
                     <!-- Checkboxes individuais organizados em duas colunas -->
                     <div class="checkbox-list">
-                        <label class="checkbox-item">Cartão da Sala
-                            <input type="checkbox" name="item_kit[]" value="cartao_sala">
+                        <label class="checkbox-item">Cartão da Sala *
+                            <input type="checkbox" name="item_kit[]" value="cartao_sala" required>
                             <span class="checkmark"></span>
                         </label>
 
-                        <label class="checkbox-item">Caneta da Lousa
-                            <input type="checkbox" name="item_kit[]" value="caneta_lousa">
+                        <label class="checkbox-item">Caneta da Lousa *
+                            <input type="checkbox" name="item_kit[]" value="caneta_lousa" required>
                             <span class="checkmark"></span>
                         </label>
 
-                        <label class="checkbox-item">Controle do Ar
-                            <input type="checkbox" name="item_kit[]" value="controle_ar">
+                        <label class="checkbox-item">Controle do Ar *
+                            <input type="checkbox" name="item_kit[]" value="controle_ar" required>
                             <span class="checkmark"></span>
                         </label>
 
-                        <label class="checkbox-item">Controle Projetor
-                            <input type="checkbox" name="item_kit[]" value="controle_projetor">
+                        <label class="checkbox-item">Controle Projetor *
+                            <input type="checkbox" name="item_kit[]" value="controle_projetor" required>
                             <span class="checkmark"></span>
                         </label>
                     </div>

@@ -3,6 +3,7 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . '/Pi-Software/class/classes.php';
 
 $Docente = new Docente();
+$Kits = new Kit();
 
 // Definindo o fuso horário
 date_default_timezone_set('America/Sao_Paulo');
@@ -65,6 +66,7 @@ if ($data) {
             echo "<tr>
                     <td>" . htmlspecialchars(date('d/m/Y H:i:s', strtotime($row['data_saida']))) . "</td>
                     <td>" . htmlspecialchars($Docente->mostrar($row['id_docente'])->nome) . "</td>
+                    <td>" . htmlspecialchars($Kits->mostrar($row['n_sala'])->n_sala) . "</td>
                     <td>" . htmlspecialchars($itemKitFormatado) . "</td>
                     <td>" . htmlspecialchars(!empty($row['data_entrada']) ? date('d/m/Y H:i:s', strtotime($row['data_entrada'])) : "") . "</td>
                     <td>" . htmlspecialchars(!empty($row['id_docente2']) ? $Docente->mostrar($row['id_docente2'])->nome : "") . "</td>

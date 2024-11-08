@@ -123,13 +123,14 @@ class Entrada_saida {
         $data_saida = date("Y-m-d H:i:s");
 
         // Verifica a disponibilidade do kit
-        $sql = $this->pdo->prepare('SELECT count(id_entrada_saida) FROM kits k INNER JOIN entradas_saidas es ON k.id_kit = es.id_kit WHERE k.codigo_barras_kit = :codigo_barras_kit AND es.data_entrada IS NULL;');
+        $sql = $this->pdo->prepare('SELECT situacao FROM kits WHERE codigo_barras_kit = :codigo_barras_kit');
         $sql->bindParam(':codigo_barras_kit', $codigo_barras_kit); 
         $sql->execute();
-        $kitDisponivel = $sql->fetchColumn();
+        $situacaoKit = $sql->fetchColumn();
 
-        if ($kitDisponivel == 2) {
-            echo "<script>alert('Kit está Indisponível!');</script>";
+        // Verifica se o kit está disponível (situacao = 1) ou se já foi retirado ou devolvido
+        if ($situacaoKit != 1) {
+            echo "<script>alert('Kit está Indisponível ou já retirado!');</script>";
             return;
         }
 
@@ -163,16 +164,17 @@ class Entrada_saida {
         $sql->bindParam(':item_kit', $item_kit); // A string de itens selecionados
         
         if ($sql->execute()) {
-            // Atualiza o status do kit para "indisponível"
+            // Atualiza o status do kit para "indisponível" (situacao = 2)
             $sql = $this->pdo->prepare('UPDATE kits SET situacao = 2 WHERE codigo_barras_kit = :codigo_barras_kit');
             $sql->bindParam(':codigo_barras_kit', $codigo_barras_kit);
             $sql->execute();
 
-            echo "<script>alert('Retirado com sucesso!');</script>";
+            echo "<script>alert('Kit retirado com sucesso!');</script>";
         } else {
             echo "<script>alert('Erro ao registrar a retirada.');</script>";
         }
     }
+
 
 
     public function devolver($dados)
@@ -184,41 +186,47 @@ class Entrada_saida {
 
         // Verifica quantos kits disponíveis
         $sql = $this->pdo->prepare('SELECT count(id_entrada_saida) FROM kits k INNER JOIN entradas_saidas es ON k.id_kit = es.id_kit WHERE k.codigo_barras_kit = :codigo_barras_kit AND es.data_entrada IS NULL;');
-        $sql->bindParam(':codigo_barras_kit', $codigo_barras_kit); // Vincula o parâmetro
+        $sql->bindParam(':codigo_barras_kit', $codigo_barras_kit);
         $sql->execute();
         $kitDisponivel = $sql->fetchColumn();
 
         if ($kitDisponivel == 1) {
-            // Busca o docente que está entregando
+            // Verifica o id_docente pelo código de barras do docente que está tentando devolver
             $sql = $this->pdo->prepare('SELECT id_docente FROM docentes WHERE codigo_barras = :codigo_barras');    
             $sql->bindParam(':codigo_barras', $codigo_barras);
             $sql->execute();
             $id_docente_entregador = $sql->fetchColumn();
-            
-            // Busca o id_kit e o id_docente
+
+            if ($id_docente_entregador === false) {
+                echo "<script>alert('Docente não encontrado!');</script>";
+                return;
+            }
+
+            // Busca o id_kit e o id_docente que retirou o kit
             $sql = $this->pdo->prepare('
-                SELECT k.*, es.id_docente AS id_docente 
+                SELECT k.*, es.id_docente AS id_docente_retirada 
                 FROM kits k
                 LEFT JOIN entradas_saidas es ON k.id_kit = es.id_kit
-                WHERE k.codigo_barras_kit = :codigo_barras_kit
+                WHERE k.codigo_barras_kit = :codigo_barras_kit AND es.data_entrada IS NULL
             ');     
             $sql->bindParam(':codigo_barras_kit', $codigo_barras_kit);
             $sql->execute();
             $kit = $sql->fetch(PDO::FETCH_OBJ);
 
-            // Verifique se a propriedade id_docente existe no objeto kit
-            if (!isset($kit->id_docente)) {
+            if (!isset($kit->id_docente_retirada)) {
                 echo "<script>alert('Não foi possível encontrar o docente associado ao kit.');</script>";
                 return;
             }
 
             $id_kit = $kit->id_kit;
+            $id_docente_retirada = $kit->id_docente_retirada;
 
-            // Verifica se o docente que está devolvendo é o mesmo que retirou o kit
-            if ($kit->id_docente == $id_docente_entregador) {
+            // Se o docente que está devolvendo o kit for o mesmo que retirou o kit
+            if ($id_docente_entregador == $id_docente_retirada) {
                 // Atualiza a entrada de saída com a data de devolução
-                $sql = $this->pdo->prepare('UPDATE entradas_saidas SET data_entrada = :data_entrada, item_kit2 = :item_kit2 WHERE id_kit = :id_kit AND data_entrada IS NULL');
+                $sql = $this->pdo->prepare('UPDATE entradas_saidas SET id_docente2 = :id_docente2, data_entrada = :data_entrada, item_kit2 = :item_kit2 WHERE id_kit = :id_kit AND data_entrada IS NULL');
                 $sql->bindParam(':id_kit', $id_kit);
+                $sql->bindParam(':id_docente2', $id_docente_entregador);
                 $sql->bindParam(':data_entrada', $data_entrada);
                 $sql->bindParam(':item_kit2', $item_kit2); // Aqui o item_kit já está garantido como uma string não nula
                 $sql->execute();
@@ -228,15 +236,14 @@ class Entrada_saida {
                 $sql->bindParam(':codigo_barras_kit', $codigo_barras_kit);
                 $sql->execute();
 
-                // Exibe alerta de sucesso
                 echo "<script>alert('Devolvido com sucesso!');</script>";
             } else {
-                // Caso o docente não seja o mesmo que retirou, você pode atualizar o id_docente2
-                $sql = $this->pdo->prepare('UPDATE entradas_saidas SET data_entrada = :data_entrada, id_docente2 = :id_docente2, item_kit2 = :item_kit2 WHERE id_kit = :id_kit');
+                // Se for outro docente, registra o id_docente2
+                $sql = $this->pdo->prepare('UPDATE entradas_saidas SET data_entrada = :data_entrada, id_docente2 = :id_docente2, item_kit2 = :item_kit2 WHERE id_kit = :id_kit AND data_entrada IS NULL');
                 $sql->bindParam(':id_kit', $id_kit);
                 $sql->bindParam(':data_entrada', $data_entrada);
-                $sql->bindParam(':id_docente2', $id_docente_entregador);
-                $sql->bindParam(':item_kit2', $item_kit2); // Aqui o item_kit é garantido como uma string não nula
+                $sql->bindParam(':id_docente2', $id_docente_entregador); // Registra o docente que está devolvendo
+                $sql->bindParam(':item_kit2', $item_kit2); // Aqui o item_kit já está garantido como uma string não nula
                 $sql->execute();
 
                 // Atualiza a situação do kit para disponível
@@ -244,15 +251,12 @@ class Entrada_saida {
                 $sql->bindParam(':codigo_barras_kit', $codigo_barras_kit);
                 $sql->execute();
 
-                // Exibe alerta de sucesso
                 echo "<script>alert('Devolvido com sucesso!');</script>";
             }
         } else {
             echo "<script>alert('Kit não pode ser devolvido!');</script>";
         }
     }
-
-
 
 }
 
